@@ -1,1 +1,1 @@
-12
+print(datetime.now())

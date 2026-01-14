@@ -18,7 +18,6 @@ def planets_visible(lat,lon, datetime):
         "Uranus":ephem.Uranus(),
         "Neptune":ephem.Neptune()
     }
-
     for planet_name in planets:
         info_planet = planets[planet_name]
         info_planet.compute(observer)
