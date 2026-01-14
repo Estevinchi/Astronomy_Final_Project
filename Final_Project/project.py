@@ -32,32 +32,35 @@ def main():
             date = datetime.now()
             date = date.strftime("%Y/%m/%d")
             date = date + " " + "00:00"
+            utc_date =set_time_zone(get_time_diff(lat=lat, lon=lon, date=date), date)
         case _:
             print("-----")
             print("You choosed to write the date.")
             print("Please, follow this pattern YYYY/MM/DD HH:MM")
             date = input("Input date: ")
-            new_date = set_time_zone(get_time_diff(lat=lat, lon=lon, date=date), date)
+            utc_date = set_time_zone(get_time_diff(lat=lat, lon=lon, date=date), date)
 
     print("-----")
     print("Validating dates")
     print(f"Local time: {date}")
     print("...")
     validate_date(date)
-    print(f"UTC+0: {new_date}")
+    print(f"UTC+0: {utc_date}")
     print("...")
-    validate_date(new_date)
+    validate_date(utc_date)
 
-    day, hour = str(new_date).split()
-
+    day, hour = str(date).split()
+    _,utc_hour  = str(utc_date).split()
+    
+    
     print("-----")
-    planets = planets_visible(lat, lon, new_date)
-    print(f"List of the planets you can see from {city} on {day} at {hour}h:")
+    planets = planets_visible(lat, lon, utc_date)
+    print(f"List of the planets you can see from {city} on {day} at {hour}h (UTC0:{utc_hour}h):")
     for planet in planets:
         print(f"- {planet}")
 
     print("-----")
-    print(f"Moon phase in {city} on {day}: {moon_phase(new_date)}")
+    print(f"Moon phase in {city} on {day}: {moon_phase(utc_date)}")
 
 
 def validate_city(cityName):
